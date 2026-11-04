@@ -1,6 +1,6 @@
 # Huella de carbono: ¿quién contamina más?
 
-**Equipo:** Proyecto 2
+Proyecto 2
 
 ## Integrantes
 - Evali Cuevas
