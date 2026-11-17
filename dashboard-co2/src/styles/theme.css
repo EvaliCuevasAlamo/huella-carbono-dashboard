@@ -1,0 +1,7 @@
+/* Paleta definida en la Fase 2 */
+:root{
+  --verde:#1B6B4A; --azul:#1D6A96; --ambar:#E8A33D; --carbon:#2F3E46;
+  --fondo:#F1F6F3; --verde-claro:#E3F1E8; --gris:#8A99A1; --blanco:#fff;
+  --fuente:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+}
+*{box-sizing:border-box} body{margin:0;background:var(--fondo);color:var(--carbon);font-family:var(--fuente)}
