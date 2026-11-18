@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Header from './components/Header';
 import Kpis from './components/Kpis';
 import WorldMap from './components/WorldMap';
-import { Top5Chart, ContinentLines, GdpScatter, FuelStacked } from './components/charts';
+import { Top5Chart, ContinentLines, CompareChart } from './components/charts';
 import { loadData } from './utils/data';
 import './styles/theme.css';
 import './styles/dashboard.css';
@@ -18,7 +18,7 @@ export default function App() {
   const continents = useMemo(() => [...new Set(data.map((r) => r.continent))], [data]);
   // inContinent: filtrado por continente (para rankings); scope: además filtrado por país (para KPIs)
   const inContinent = useMemo(() => data.filter((r) => continent === 'Todos' || r.continent === continent), [data, continent]);
-  const countries = useMemo(() => [...new Set(inContinent.map((r) => r.country))].sort(), [inContinent]);
+  const countries = useMemo(() => [...new Set(inContinent.map((r) => r.country))].sort((a, b) => a.localeCompare(b, 'es')), [inContinent]);
   const scope = useMemo(() => (country === 'Todos' ? inContinent : inContinent.filter((r) => r.country === country)), [inContinent, country]);
 
   if (!data.length) return <p style={{ padding: 20 }}>Cargando datos…</p>;
@@ -34,10 +34,9 @@ export default function App() {
       </div>
       <div className="bottom">
         <ContinentLines rows={inContinent} y0={y0} y1={y1} />
-        <GdpScatter rows={inContinent} year={y1} />
-        <FuelStacked rows={inContinent} year={y1} />
+        <CompareChart rows={inContinent} y0={y0} y1={y1} />
       </div>
-      <footer className="footer">Fuente: datos de ejemplo con el esquema de Our World in Data (CO₂). Reemplazar por la base de la Fase 1.</footer>
+      <footer className="footer">Fuente: Our World in Data, emisiones anuales de CO₂ por país (Global Carbon Project), 2010–2023.</footer>
     </main>
   );
 }

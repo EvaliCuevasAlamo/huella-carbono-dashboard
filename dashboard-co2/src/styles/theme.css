@@ -1,7 +1,30 @@
 /* Paleta definida en la Fase 2 */
-:root{
-  --verde:#1B6B4A; --azul:#1D6A96; --ambar:#E8A33D; --carbon:#2F3E46;
-  --fondo:#F1F6F3; --verde-claro:#E3F1E8; --gris:#8A99A1; --blanco:#fff;
+:root {
+   --azul:#2C7BB6;        /* bajo */
+  --azul-claro:#8EC1DA;
+  --naranja:#F08A4B;
+  --rojo:#C62F2F;        /* alto */
+  --carbon:#2F3E46;
+  --fondo:#F4F6F8;
+  --azul-fondo:#E6F0F7;
+  --gris:#8A99A1;
+  --blanco:#fff;
+  --gradiente:linear-gradient(90deg,#2C7BB6,#8EC1DA,#F4E3B1,#F08A4B,#C62F2F);
   --fuente:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+
+  /* Alias para que dashboard.css siga funcionando sin cambios */
+  --verde:#1F4E79;             
+  --verde-claro:var(--azul-fondo);
+  --ambar:var(--rojo);         /* ".up": suben las emisiones = rojo */
 }
-*{box-sizing:border-box} body{margin:0;background:var(--fondo);color:var(--carbon);font-family:var(--fuente)}
+
+* {
+  box-sizing: border-box
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--carbon);
+  font-family: var(--fuente)
+}
