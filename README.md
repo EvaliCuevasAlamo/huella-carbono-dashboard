@@ -43,3 +43,4 @@ Dashboard dinámico desarrollado con **React** que explora cómo distintos país
 /backend   API y scripts ETL
 /frontend  Aplicación React
 ```
+
