@@ -32,9 +32,9 @@ Dashboard dinámico desarrollado con **React** que explora cómo distintos país
 
 ## Estado del proyecto
 - [x] Fase 1: Análisis de requisitos
-- [ ] Fase 2: Diseño
-- [ ] Fase 3: Desarrollo
-- [ ] Fase 4: Pruebas y despliegue
+- [x] Fase 2: Diseño
+- [x] Fase 3: Desarrollo
+- [x] Fase 4: Pruebas y despliegue
 
 ## Estructura del repositorio
 ```
