@@ -41,8 +41,8 @@ export default function Kpis({ scope, inContinent, y0, y1 }) {
       </Card>
       <Card className="kpi">
         <h3>Mayor mejora</h3>
-        <div className={`value ${cls(best.v)}`}>{arrow(best.v)} {fmt(best.v, 0)} %</div>
-        <small>{best.country} ({y0}–{y1})<br />solo países con &gt; 10 Mt en {y0}</small>
+        <div className={`value ${cls(best.v)}`}>{best.country} <br></br> {arrow(best.v)} {fmt(best.v, 0)} % </div>
+        <small> ({y0}–{y1})<br />solo países con &gt; 10 Mt en {y0}</small>
       </Card>
       <Card className="kpi">
         <h3>Concentración Top 5</h3>

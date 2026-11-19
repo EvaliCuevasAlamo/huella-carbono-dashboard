@@ -47,8 +47,7 @@ export default function WorldMap({ rows, year, selected, onSelect }) {
           <b>Mt CO₂</b>
           {SCALE.map(([, c], i) => <span key={c}><i style={{ background: c }} />{LABELS[i]}</span>)}
           <span><i style={{ background: '#D5DADD' }} />Sin datos</span>
-          <b style={{ marginTop: 8 }}>Más alto</b>{ranked.slice(0, 3).map((r) => <span key={r.name}>{r.name} {fmt(r.v, 0)}</span>)}
-          <b style={{ marginTop: 8 }}>Más bajo</b>{ranked.slice(-1).map((r) => <span key={r.name}>{r.name} {fmt(r.v, 1)}</span>)}
+          
         </div>
       </div>
     </Card>

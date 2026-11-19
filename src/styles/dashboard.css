@@ -200,7 +200,7 @@ small{
 }
 
 .legend {
-    font-size: .75rem;
+    font-size: 1.3rem;
     display: flex;
     flex-direction: column;
     gap: 2px;
