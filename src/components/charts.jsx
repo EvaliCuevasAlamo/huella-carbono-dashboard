@@ -7,7 +7,7 @@ const C = { rojo: '#C62F2F', naranja: '#F08A4B', azul: '#2C7BB6', azulClaro: '#8
 const CONT_COLORS = { Asia: C.rojo, 'América del Norte': C.naranja, Europa: C.carbon, África: C.azulClaro, 'América del Sur': C.azul, Oceanía: '#7AA6C2' };
 
 // Ancho del eje de nombres según el nombre más largo
-const axisWidth = (data) => Math.min(220, Math.max(60, Math.max(...data.map((d) => d.name.length)) * 6.5 + 12));
+const axisWidth = (data) => Math.min(220, Math.max(48, Math.max(...data.map((d) => d.code.length)) * 11 + 12));
 
 // Etiqueta del eje como texto SVG simple (Recharts recorta con "…" las suyas)
 const NameTick = ({ x, y, payload }) => (
@@ -20,7 +20,7 @@ export function Top5Chart({ rows, year }) {
   const top = mode === 'top';
   const unit = top ? 'Gt' : 'Mt';
   const dec = top ? 1 : 3;
-  const data = (top ? topN(rows, year) : bottomN(rows, year)).map((r) => ({ name: r.iso_code, v: top ? r.co2 / 1000 : r.co2 }));
+  const data = (top ? topN(rows, year) : bottomN(rows, year)).map((r) => ({ code: r.iso_code, name: r.country, v: top ? r.co2 / 1000 : r.co2 }));
   const colors = top ? [C.rojo, C.naranja] : [C.azul, C.azulClaro];
   return (
     <Card>
@@ -35,11 +35,10 @@ export function Top5Chart({ rows, year }) {
       </div>
       <div className="chart"><ResponsiveContainer>
         <BarChart data={data} layout="vertical" margin={{ right: 50 }}>
-          <XAxis type="number" hide /><YAxis type="category" dataKey="name" width={axisWidth(data)} tick={<NameTick />} />
-          <Tooltip formatter={(v) => `${fmt(v, dec)} ${unit}`} />
-          <Bar dataKey="v">
-            {data.map((d, i) => <Cell key={d.name} fill={i === 0 ? colors[0] : colors[1]} />)}
-            <LabelList dataKey="v" position="right" formatter={(v) => fmt(v, dec)} />
+          <XAxis type="number" hide /><YAxis type="category" dataKey="code" width={axisWidth(data)} tick={<NameTick />} />
+          <Tooltip labelFormatter={(label, payload) => payload?.[0]?.payload?.name ?? label} formatter={(v) => `${fmt(v, dec)} ${unit}`} />
+          <Bar dataKey="v" name="CO₂">
+            {data.map((d, i) => <Cell key={d.code} fill={i === 0 ? colors[0] : colors[1]} />)}
           </Bar>
         </BarChart>
       </ResponsiveContainer></div>
@@ -69,20 +68,20 @@ export function ContinentLines({ rows, y0, y1 }) {
   );
 }
 
-// Barras agrupadas: Top 10 emisores del año final, comparados con el año inicial
+// Barras agrupadas: Top 5 emisores del año final, comparados con el año inicial
 export function CompareChart({ rows, y0, y1 }) {
-  const data = topN(rows, y1, 10).map((r) => {
+  const data = topN(rows, y1, 5).map((r) => {
     const start = rows.find((x) => x.country === r.country && x.year === y0);
-    return { name: r.iso_code, ini: (start?.co2 || 0) / 1000, fin: r.co2 / 1000 };
+    return { code: r.iso_code, name: r.country, ini: (start?.co2 || 0) / 1000, fin: r.co2 / 1000 };
   });
   return (
     <Card level={3}>
-      <h3>Top 10 emisores: {y0} vs. {y1} (Gt CO₂)</h3><small>Los 10 mayores emisores en {y1}</small>
+      <h3>Top 5 emisores: {y0} vs. {y1} (Gt CO₂)</h3><small>Los 10 mayores emisores en {y1}</small>
       <div className="chart tall"><ResponsiveContainer>
         <BarChart data={data} layout="vertical" margin={{ right: 20 }}>
           <CartesianGrid stroke="#e5ebe8" horizontal={false} />
-          <XAxis type="number" /><YAxis type="category" dataKey="name" width={axisWidth(data)} interval={0} tick={<NameTick />} />
-          <Tooltip formatter={(v) => `${fmt(v, 2)} Gt`} /><Legend />
+          <XAxis type="number" /><YAxis type="category" dataKey="code" width={axisWidth(data)} interval={0} tick={<NameTick />} />
+          <Tooltip labelFormatter={(label, payload) => payload?.[0]?.payload?.name ?? label} formatter={(v) => `${fmt(v, 2)} Gt`} /><Legend />
           <Bar dataKey="ini" name={String(y0)} fill={C.azul} barSize={8} />
           <Bar dataKey="fin" name={String(y1)} fill={C.rojo} barSize={8} />
         </BarChart>
