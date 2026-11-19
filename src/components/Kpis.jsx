@@ -22,7 +22,7 @@ export default function Kpis({ scope, inContinent, y0, y1 }) {
   return (
     <div className="kpis">
       <Card level={1} className="kpi main">
-        <h3>KPI principal · CO₂ total</h3>
+        <h3>CO₂ total</h3>
         <div><span className="value">{main.value}</span> <small>{main.unit} CO₂ · {y1}</small></div>
         <small>{y0} → {y1}: {sign(totalVar)}{fmt(totalVar, 0)} %</small>
         <div style={{ height: 50 }}>

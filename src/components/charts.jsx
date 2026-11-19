@@ -11,7 +11,7 @@ const axisWidth = (data) => Math.min(220, Math.max(60, Math.max(...data.map((d) 
 
 // Etiqueta del eje como texto SVG simple (Recharts recorta con "…" las suyas)
 const NameTick = ({ x, y, payload }) => (
-  <text x={x - 6} y={y} dy={4} textAnchor="end" fontSize={12} fill="#2F3E46">{payload.value}</text>
+  <text x={x - 6} y={y} dy={4} textAnchor="end" fontSize={16} fill="#2F3E46">{payload.value}</text>
 );
 
 // Barras horizontales con interruptor: 5 mayores / 5 menores emisores
@@ -20,7 +20,7 @@ export function Top5Chart({ rows, year }) {
   const top = mode === 'top';
   const unit = top ? 'Gt' : 'Mt';
   const dec = top ? 1 : 3;
-  const data = (top ? topN(rows, year) : bottomN(rows, year)).map((r) => ({ name: r.country, v: top ? r.co2 / 1000 : r.co2 }));
+  const data = (top ? topN(rows, year) : bottomN(rows, year)).map((r) => ({ name: r.iso_code, v: top ? r.co2 / 1000 : r.co2 }));
   const colors = top ? [C.rojo, C.naranja] : [C.azul, C.azulClaro];
   return (
     <Card>
@@ -73,7 +73,7 @@ export function ContinentLines({ rows, y0, y1 }) {
 export function CompareChart({ rows, y0, y1 }) {
   const data = topN(rows, y1, 10).map((r) => {
     const start = rows.find((x) => x.country === r.country && x.year === y0);
-    return { name: r.country, ini: (start?.co2 || 0) / 1000, fin: r.co2 / 1000 };
+    return { name: r.iso_code, ini: (start?.co2 || 0) / 1000, fin: r.co2 / 1000 };
   });
   return (
     <Card level={3}>
