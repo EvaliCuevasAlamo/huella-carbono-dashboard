@@ -33,7 +33,7 @@ export default function WorldMap({ rows, year, selected, onSelect }) {
       <h3>Emisiones totales de CO₂ (Mt), {year}</h3><small>Clic en un país filtra el dashboard</small>
       <div className="map">
         {error ? <p>No se pudo cargar el mapa (revisa tu conexión).</p> : (
-          <MapContainer center={[20, 10]} zoom={1.5} zoomSnap={0.5} scrollWheelZoom={false} attributionControl={false} style={{ height: '100%' }}>
+          <MapContainer center={[20, 10]} zoom={1.0} zoomSnap={0.5} scrollWheelZoom={false} attributionControl={false} style={{ height: '100%' }}>
             {geo && <GeoJSON key={`${year}-${selected}-${cur.length}`} data={geo}
               style={(f) => { const d = tot[iso(f)]; return { fillColor: colorFor(d?.v), fillOpacity: 0.95, color: d?.name === selected ? '#2F3E46' : '#fff', weight: d?.name === selected ? 3 : 0.5 }; }}
               onEachFeature={(f, layer) => {
