@@ -76,7 +76,7 @@ export function CompareChart({ rows, y0, y1 }) {
   });
   return (
     <Card level={3}>
-      <h3>Top 5 emisores: {y0} vs. {y1} (Gt CO₂)</h3><small>Los 10 mayores emisores en {y1}</small>
+      <h3>Top 5 emisores: {y0} vs. {y1} (Gt CO₂)</h3>
       <div className="chart tall"><ResponsiveContainer>
         <BarChart data={data} layout="vertical" margin={{ right: 20 }}>
           <CartesianGrid stroke="#e5ebe8" horizontal={false} />
